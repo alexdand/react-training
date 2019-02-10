@@ -12,10 +12,10 @@ class App extends Component {
     };
   }
 
-  incrementCounter = () => {
+  incrementCounter = (step) => {
     this.setState((prevState) => {
       return {
-        counter: prevState.counter + 1
+        counter: prevState.counter + step
       };
     });
   }
@@ -23,7 +23,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Button onClickFunction={this.incrementCounter.bind(this)} />
+        <Button onClickFunction={this.incrementCounter} step={1} />
+        <Button onClickFunction={this.incrementCounter} step={5} />
+        <Button onClickFunction={this.incrementCounter} step={10} />
+        <Button onClickFunction={this.incrementCounter} step={100} />
+        <Button onClickFunction={this.incrementCounter} step={1000} />
         <Message counter={this.state.counter} />
       </div>
     );

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 class Button extends Component {
 
-  constructor(props) {
-    super(props);
-  }
+  handleClick = () => {
+    this.props.onClickFunction(this.props.step);
+  };
 
   render () {
     return (
-      <button onClick={this.props.onClickFunction}>+1</button>
+      <button onClick={() => this.handleClick}>+{this.props.step}</button>
     )
   }
 }

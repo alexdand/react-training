@@ -8,7 +8,7 @@ class Button extends Component {
 
   render () {
     return (
-      <button onClick={() => this.handleClick}>+{this.props.step}</button>
+      <button onClick={this.handleClick}>+{this.props.step}</button>
     )
   }
 }

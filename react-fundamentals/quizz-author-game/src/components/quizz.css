@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2em;
+}
+
+.author {
+  margin-right: 3.5em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.option {
+  margin-bottom: 40px;
+  background-color: burlywood;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  width: 600px;
+  padding: 25px;
+  box-sizing: border-box;
+  cursor: pointer;
+}

@@ -7,13 +7,16 @@ import AUTHORS from "./authors";
 import AddAuthorForm from "./AddAuthorForm";
 import * as serviceWorker from "./serviceWorker";
 
-const authors = AUTHORS;
-let state = {
-  authors: authors,
-  options: shuffle(AUTHORS.map(a => a.books[Math.floor(Math.random() * 4)])),
-  random: Math.floor(Math.random() * 4),
-  background: "quizz"
-};
+let authors = AUTHORS;
+let state = resetState();
+
+function resetState() {
+  return {
+    randomAuthor: authors[Math.floor(Math.random() * 4)],
+    options: shuffle(AUTHORS.map(a => a.books[Math.floor(Math.random() * 4)])),
+    background: "quizz"
+  };
+}
 
 function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
@@ -24,25 +27,45 @@ function shuffle(a) {
   return a;
 }
 
+function onContinue() {
+  console.log("continue");
+  state = resetState();
+  render();
+}
+
 const AuthorWrapper = withRouter(({ history }) => (
   <AddAuthorForm
     onAddAuthor={author => {
-      this.authors.push(author);
+      authors.push(author);
       history.push("/");
+      console.log(authors);
     }}
   />
 ));
+
+function checkAnswer(isCorrect) {
+  const background = isCorrect ? "quizz-correct" : "quizz-wrong";
+  state = { ...state, background };
+  render();
+}
 
 function render() {
   ReactDOM.render(
     <BrowserRouter>
       <React.Fragment>
-        <Route exact path="/" render={() => <App {...state} />} />
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <App {...state} checkAnswer={checkAnswer} onContinue={onContinue} />
+          )}
+        />
         <Route path="/add" component={AuthorWrapper} />
       </React.Fragment>
     </BrowserRouter>,
     document.getElementById("root")
   );
+  console.log(authors);
 }
 
 render();

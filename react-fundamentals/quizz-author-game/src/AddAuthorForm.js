@@ -5,15 +5,27 @@ class AuthorForm extends Component {
     super(props);
     this.state = {
       name: "",
-      imageUrl: ""
+      imageUrl: "",
+      books: [],
+      bookTemp: ""
     };
     this.onFieldChange = this.onFieldChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onAddBook = this.onAddBook.bind(this);
   }
 
   onFieldChange(event) {
     this.setState({
       [event.target.name]: event.target.value
+    });
+  }
+
+  onAddBook() {
+    this.setState(function(prevState) {
+      return {
+        books: prevState.books.concat([this.state.bookTemp]),
+        bookTemp: ""
+      };
     });
   }
 
@@ -26,7 +38,7 @@ class AuthorForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">Name: </label>
           <input
             type="text"
             name="name"
@@ -35,8 +47,30 @@ class AuthorForm extends Component {
           />
         </div>
         <div>
-          <label htmlFor="imageUrl">Name</label>
-          <input type="text" name="imageUrl" value={this.state.imageUrl} />
+          <label htmlFor="imageUrl">Image Url: </label>
+          <input
+            type="text"
+            name="imageUrl"
+            value={this.state.imageUrl}
+            onChange={this.onFieldChange}
+          />
+        </div>
+        <div>
+          {this.state.books.map((book, idx) => (
+            <p key={idx}>{book}</p>
+          ))}
+        </div>
+        <div>
+          <label htmlFor="books">Book: </label>
+          <input
+            type="text"
+            name="bookTemp"
+            value={this.state.bookTemp}
+            onChange={this.onFieldChange}
+          />
+          <button type="button" onClick={this.onAddBook}>
+            +
+          </button>
         </div>
         <input type="submit" value="Add" />
       </form>
@@ -48,7 +82,7 @@ function AddAuthorForm(props) {
   return (
     <div className="addAuthorForm">
       <h1>Add Author Form</h1>
-      <AuthorForm onAddAuthor={props.onAddAuthor} />
+      <AuthorForm addAuthor={props.onAddAuthor} />
     </div>
   );
 }

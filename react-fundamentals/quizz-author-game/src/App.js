@@ -4,6 +4,7 @@ import "./App.css";
 import Header from "./components/header";
 import Quizz from "./components/quizz";
 import Message from "./components/message";
+import Continue from "./components/continue";
 
 // TODO
 // 1) user should not be able to click multiple times
@@ -17,7 +18,16 @@ const App = props => {
   return (
     <div className={props.background}>
       <Header />
-      <Quizz author={props.authors[props.random]} options={props.options} />
+      <Quizz
+        author={props.randomAuthor}
+        options={props.options}
+        checkAnswer={props.checkAnswer}
+        background={props.background}
+      />
+      <Continue
+        show={props.background === "quizz-correct"}
+        onContinue={props.onContinue}
+      />
       <p>
         <Link to="/add">Add an author</Link>
       </p>

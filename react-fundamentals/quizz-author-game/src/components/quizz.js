@@ -15,7 +15,7 @@ const Quizz = props => {
             className="option"
             onClick={event =>
               props.checkAnswer(
-                props.author.books.indexOf(event.target.textContent) < 0
+                props.author.books.indexOf(event.target.textContent) !== -1
               )
             }
           >
